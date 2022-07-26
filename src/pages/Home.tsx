@@ -1,31 +1,41 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { Modal, StyleSheet, Text, View } from "react-native";
+import CreateButton from "../components/CreateButton";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
+import weekdays from "../utils/weekdays";
 
 export default function Home() {
+  const currentDay = new Date();
+
   return (
-    <View>
+    <View style={styles.screen}>
       <Header title="REMINDER" />
 
       <View style={styles.dayContainer}>
-        <Text style={styles.day}>TER</Text>
-        <Text style={styles.day}>26/07</Text>
+        <Text style={styles.day}>{weekdays[currentDay.getDay() - 1]}</Text>
+        <Text style={styles.day}>
+          {currentDay
+            .getDate()
+            .toString()
+            .concat("/".concat((currentDay.getMonth() + 1).toString()))}
+        </Text>
       </View>
 
-      <View style={styles.listContainer}>
-        
+      <View>
         <ListItem time="09:00" title="Vitamina D" />
         <ListItem time="09:00" title="Vitamina D" />
-
       </View>
+
+      <CreateButton />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   dayContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -36,6 +46,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#393E46",
   },
-  listContainer: {
-  }
+
+  tt: {
+    width: 50,
+    backgroundColor: "green",
+  },
 });

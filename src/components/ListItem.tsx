@@ -24,7 +24,6 @@ export default function ListItem({ time, title }: ListItemProps) {
             setSelection(!isSelected);
           }}
           checkedColor="#F96D00"
-          style={styles.checkBox}
         />
       </View>
     </View>
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginRight: 32,
+    marginRight: 16,
     marginLeft: 32,
   },
   content: {
@@ -46,10 +45,6 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Lato_400Regular",
     fontSize: 16,
-    paddingRight: 16,
-  },
-  checkBox: {
-    color: "blue",
-    backgroundColor: "green",
+    paddingRight: 32,
   },
 });
