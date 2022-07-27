@@ -1,9 +1,14 @@
 import React from "react";
-import { Modal, StyleSheet, Text, View } from "react-native";
-import CreateButton from "../components/CreateButton";
+import { StyleSheet, Text, View } from "react-native";
+import AddButton from "../components/AddButton";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
 import weekdays from "../utils/weekdays";
+
+interface Reminder {
+  name: string;
+  time: string;
+}
 
 export default function Home() {
   const currentDay = new Date();
@@ -27,7 +32,7 @@ export default function Home() {
         <ListItem time="09:00" title="Vitamina D" />
       </View>
 
-      <CreateButton />
+      <AddButton />
     </View>
   );
 }
@@ -45,10 +50,5 @@ const styles = StyleSheet.create({
     fontFamily: "Lato_400Regular",
     fontSize: 16,
     color: "#393E46",
-  },
-
-  tt: {
-    width: 50,
-    backgroundColor: "green",
-  },
+  }
 });
