@@ -6,16 +6,18 @@ import { View } from "react-native";
 interface ListItemProps {
   time: string;
   title: string;
+  done: boolean;
 }
 
-export default function ListItem({ time, title }: ListItemProps) {
-  const [isSelected, setSelection] = useState(false);
+export default function ListItem({ time, title, done }: ListItemProps) {
+  const [isSelected, setSelection] = useState(done);
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.text}>{time}</Text>
         <Text style={styles.text}>{title}</Text>
+        <Text style={styles.text}>{done}</Text>
       </View>
       <View>
         <CheckBox

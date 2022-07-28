@@ -25,7 +25,7 @@ export default function AddButton() {
         >
           <MaterialIcons
             name="add"
-            size={50}
+            size={40}
             color="black"
             style={styles.icon}
           />
