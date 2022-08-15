@@ -16,7 +16,7 @@ export default function AddButton() {
           setModalVisible(!modalVisible);
         }}
       >
-        <CreateModal />
+        <CreateModal setVisible={() => setModalVisible(false)} />
       </Modal>
       <View style={styles.container}>
         <TouchableOpacity

@@ -1,23 +1,33 @@
+import { addDoc, collection, doc, setDoc } from "firebase/firestore/lite";
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import { View } from "react-native";
+import database from "../config/firebase";
 
-interface Reminder {
-  name: string;
-  time: string;
+interface IModal {
+  setVisible: any;
 }
 
-export default function CreateModal() {
-  const [name, setName] = useState("");
+export default function CreateModal({ setVisible }: IModal) {
+  const [title, setTitle] = useState("");
   const [time, setTime] = useState("");
+
+  const saveReminder = async () => {
+    await addDoc(collection(database, "reminders"), {
+      time: time,
+      title: title,
+      done: false,
+    });
+    setVisible();
+  };
 
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.text}>Criar um novo reminder</Text>
         <TextInput
-          value={name}
-          onChangeText={(text) => setName(text)}
+          value={title}
+          onChangeText={(text) => setTitle(text)}
           maxLength={30}
           placeholder="Nome"
           clearTextOnFocus={true}
@@ -32,7 +42,12 @@ export default function CreateModal() {
           style={styles.input}
         />
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              saveReminder();
+            }}
+          >
             <Text style={styles.buttonText}>CRIAR</Text>
           </TouchableOpacity>
         </View>

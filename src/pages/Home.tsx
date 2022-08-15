@@ -1,12 +1,6 @@
-import {
-  collection,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-} from "firebase/firestore/lite";
+import { collection, getDocs } from "firebase/firestore/lite";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import AddButton from "../components/AddButton";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
@@ -14,6 +8,7 @@ import database from "../config/firebase";
 import weekdays from "../utils/weekdays";
 
 interface Reminder {
+  id: string;
   time: string;
   title: string;
   done: boolean;
@@ -28,11 +23,15 @@ export default function Home() {
     const fetchReminders = async () => {
       const remindersCol = collection(database, "reminders");
       const reminderSnapshot = await getDocs(remindersCol);
-      return reminderSnapshot.docs.map((doc) => doc.data());
+      return reminderSnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        data: doc.data(),
+        id: doc.id,
+      }));
     };
 
     fetchReminders().then((doc) => {
-      doc.sort((a, b) => (a.time < b.time ? -1 : 1));
+      doc.sort((a, b) => (a.data.time < b.data.time ? -1 : 1));
       setReminders(doc);
     });
   }, []);
@@ -55,7 +54,8 @@ export default function Home() {
         {reminders?.map((rm: Reminder) => {
           return (
             <ListItem
-              key={rm.time.concat(rm.title)}
+              key={rm.id}
+              id={rm.id}
               time={rm.time}
               title={rm.title}
               done={rm.done}
